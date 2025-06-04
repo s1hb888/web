@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+    <script>
+        async function redirectToIndex(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form data
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Send form data to login.php using Fetch API
+            const response = await fetch('login.php', {
+                method: 'POST',
+                body: formData,
+            });
+
+            // Parse JSON response
+            const result = await response.json();
+
+            // Check if login is successful
+            if (result.success) {
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else {
+                alert('Login failed. Please check your credentials.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="form">
+        <form onsubmit="redirectToIndex(event)" method="post">
+            <h3>Login Form</h3>
+            <div class="box1">
+                <p>Enter your email <span>*</span></p>
+                <input type="email" name="email" maxlength="50" placeholder="Enter your email" class="input" required>
+            </div>
+            <div class="box1">
+                <p>Enter your password <span>*</span></p>
+                <input type="password" name="password" maxlength="50" placeholder="Enter your password" class="input" required>
+            </div>
+            
+            
+              
+                <button class="btn" onclick="redirectToIndex()">Login</button>
+            
+        
+            <script>
+                function redirectToIndex() {
+                    window.location.href = 'index.html';
+                }
+            </script>
+       
+        </form>
+        <div class="box1">
+            <p>Not registered yet? <a href="signup.html">Register Here</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
